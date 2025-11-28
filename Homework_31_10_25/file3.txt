@@ -1,0 +1,4 @@
+Short line
+This is a much longer line that should be detected
+Medium line
+Another very long line that might be the longest one in this file
