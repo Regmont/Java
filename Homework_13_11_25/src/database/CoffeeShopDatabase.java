@@ -1,11 +1,11 @@
 package database;
 
+import model.Client;
 import model.CoffeeOrder;
 import model.CoffeeType;
 import model.DessertOrder;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Класс представляет модель базы данных "Кофейня".
@@ -18,6 +18,7 @@ public class CoffeeShopDatabase {
     private final Map<Integer, DessertOrder> dessertOrders;
     private final Map<String, String> workSchedule;
     private final Map<Integer, CoffeeType> coffeeTypes;
+    private final Map<String, Client> clients;
     private int coffeeOrderIdCounter;
     private int dessertOrderIdCounter;
     private int coffeeTypeIdCounter;
@@ -30,6 +31,7 @@ public class CoffeeShopDatabase {
         dessertOrders = new HashMap<>();
         workSchedule = new HashMap<>();
         coffeeTypes = new HashMap<>();
+        clients = new HashMap<>();
         coffeeOrderIdCounter = 1;
         dessertOrderIdCounter = 1;
         coffeeTypeIdCounter = 1;
@@ -85,6 +87,13 @@ public class CoffeeShopDatabase {
         int id = coffeeTypeIdCounter++;
         coffeeTypes.put(id, new CoffeeType(id, name, description, price));
         return id;
+    }
+
+    /**
+     * Добавляет клиента в базу данных.
+     */
+    public void addClient(Client client) {
+        clients.put(client.getName(), client);
     }
 
     /**
@@ -144,6 +153,112 @@ public class CoffeeShopDatabase {
                 order.setDessertName(newDessertName);
             }
         }
+    }
+
+    /**
+     * Показать минимальную скидку для клиента.
+     */
+    public double getMinDiscount() {
+        return clients.values().stream()
+                .mapToDouble(Client::getDiscount)
+                .min()
+                .orElse(0.0);
+    }
+
+    /**
+     * Показать максимальную скидку для клиента.
+     */
+    public double getMaxDiscount() {
+        return clients.values().stream()
+                .mapToDouble(Client::getDiscount)
+                .max()
+                .orElse(0.0);
+    }
+
+    /**
+     * Показать клиентов с минимальной скидкой и величину скидки.
+     */
+    public List<Client> getClientsWithMinDiscount() {
+        double minDiscount = getMinDiscount();
+        List<Client> result = new ArrayList<>();
+        for (Client client : clients.values()) {
+            if (Math.abs(client.getDiscount() - minDiscount) < 0.001) {
+                result.add(client);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Показать клиентов с максимальной скидкой и величину скидки.
+     */
+    public List<Client> getClientsWithMaxDiscount() {
+        double maxDiscount = getMaxDiscount();
+        List<Client> result = new ArrayList<>();
+        for (Client client : clients.values()) {
+            if (Math.abs(client.getDiscount() - maxDiscount) < 0.001) {
+                result.add(client);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Показать среднюю величину скидки.
+     */
+    public double getAverageDiscount() {
+        return clients.values().stream()
+                .mapToDouble(Client::getDiscount)
+                .average()
+                .orElse(0.0);
+    }
+
+    /**
+     * Показать самого молодого клиента.
+     */
+    public Client getYoungestClient() {
+        return clients.values().stream()
+                .max(Comparator.comparing(Client::getAge).reversed())
+                .orElse(null);
+    }
+
+    /**
+     * Показать самого возрастного клиента.
+     */
+    public Client getOldestClient() {
+        return clients.values().stream()
+                .max(Comparator.comparing(Client::getAge))
+                .orElse(null);
+    }
+
+    /**
+     * Показать клиентов, у которых день рождения в этот день.
+     */
+    public List<Client> getClientsWithBirthdayToday() {
+        List<Client> result = new ArrayList<>();
+        for (Client client : clients.values()) {
+            if (client.hasBirthdayToday()) {
+                result.add(client);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Показать клиентов, у которых не заполнен контактный почтовый адрес.
+     */
+    public List<Client> getClientsWithoutEmail() {
+        List<Client> result = new ArrayList<>();
+        for (Client client : clients.values()) {
+            if (!client.hasEmail()) {
+                result.add(client);
+            }
+        }
+        return result;
+    }
+
+    public Map<String, Client> getClients() {
+        return new HashMap<>(clients);
     }
 
     public Map<Integer, CoffeeOrder> getCoffeeOrders() {

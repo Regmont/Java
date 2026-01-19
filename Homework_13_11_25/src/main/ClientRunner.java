@@ -1,8 +1,10 @@
 package main;
 
 import database.CoffeeShopDatabase;
+import model.Client;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 
 public class ClientRunner {
     public static void main(String[] args) {
@@ -10,37 +12,67 @@ public class ClientRunner {
 
         CoffeeShopDatabase db = new CoffeeShopDatabase();
 
-        System.out.println("Тест добавления данных:");
-        int coffeeOrderId = db.addCoffeeOrder("Капучино", 2, "Иван Петров");
-        System.out.println("Создан заказ кофе #" + coffeeOrderId);
+        db.addClient(new Client("Иван Петров", LocalDate.of(1990, 5, 15),
+                "ivan@mail.ru", 5.0));
+        db.addClient(new Client("Мария Сидорова", LocalDate.of(1985, 3, 22),
+                "maria@gmail.com", 15.0));
+        db.addClient(new Client("Алексей Иванов", LocalDate.of(2000, 12, 10),
+                null, 10.0));
+        db.addClient(new Client("Елена Ковалёва", LocalDate.of(1978, 8, 8),
+                "elena@yandex.ru", 20.0));
+        db.addClient(new Client("Дмитрий Смирнов", LocalDate.of(1995, 3, 22),
+                "", 5.0));
 
-        int dessertOrderId = db.addDessertOrder("Тирамису", 1, "Мария Сидорова");
-        System.out.println("Создан заказ десерта #" + dessertOrderId);
+        System.out.println("Информация по скидкам клиентов");
 
-        db.addOrUpdateWorkSchedule("Понедельник", "08:00-20:00");
-        System.out.println("График на понедельник добавлен");
+        System.out.println("\nОбщая статистика:");
+        System.out.println("Минимальная скидка: " + db.getMinDiscount() + "%");
+        System.out.println("Максимальная скидка: " + db.getMaxDiscount() + "%");
+        System.out.println("Средняя скидка: " + String.format("%.1f", db.getAverageDiscount()) + "%");
 
-        System.out.println("\nТест обновления данных:");
-        db.updateWorkSchedule("Вторник", "09:00-21:00");
-        System.out.println("График на вторник обновлён");
-
-        int coffeeTypeId = db.addCoffeeType("Латте", "Кофе с молоком", 180.0);
-        db.updateCoffeeTypeName(coffeeTypeId, "Латте Премиум");
-        System.out.println("Название кофе изменено на 'Латте Премиум'");
-
-        db.updateCoffeeOrder(coffeeOrderId, "Двойной капучино", 1, "Иван Петров");
-        System.out.println("Заказ кофе обновлён");
-
-        db.updateDessertName("Тирамису", "Тирамису классический");
-        System.out.println("Название десерта изменено во всех заказах");
-
-        System.out.println("\nТест обработки ошибок:");
-        try {
-            db.updateCoffeeOrder(999, "Эспрессо", 1, "Тест");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Поймана ошибка: " + e.getMessage());
+        System.out.println("\nКлиенты с минимальной скидкой (" + db.getMinDiscount() + "%):");
+        for (Client client : db.getClientsWithMinDiscount()) {
+            System.out.println("  " + client.getName());
         }
 
-        System.out.println("\nВсе тесты выполнены.");
+        System.out.println("\nКлиенты с максимальной скидкой (" + db.getMaxDiscount() + "%):");
+        for (Client client : db.getClientsWithMaxDiscount()) {
+            System.out.println("  " + client.getName());
+        }
+
+        System.out.println("\nИнформация по клиентам");
+
+        Client youngest = db.getYoungestClient();
+        Client oldest = db.getOldestClient();
+
+        if (youngest != null) {
+            System.out.println("\nСамый молодой клиент: " +
+                    youngest.getName() + ", возраст: " + youngest.getAge() + " лет");
+        }
+
+        if (oldest != null) {
+            System.out.println("Самый возрастной клиент: " +
+                    oldest.getName() + ", возраст: " + oldest.getAge() + " лет");
+        }
+
+        System.out.println("\nКлиенты с днем рождения сегодня:");
+        var birthdayClients = db.getClientsWithBirthdayToday();
+        if (birthdayClients.isEmpty()) {
+            System.out.println("  нет клиентов с днем рождения сегодня");
+        } else {
+            for (Client client : birthdayClients) {
+                System.out.println("  " + client.getName());
+            }
+        }
+
+        System.out.println("\nКлиенты без email:");
+        var clientsWithoutEmail = db.getClientsWithoutEmail();
+        if (clientsWithoutEmail.isEmpty()) {
+            System.out.println("  все клиенты указали email");
+        } else {
+            for (Client client : clientsWithoutEmail) {
+                System.out.println("  " + client.getName());
+            }
+        }
     }
 }
