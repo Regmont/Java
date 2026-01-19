@@ -1,10 +1,8 @@
 package main;
 
 import database.CoffeeShopDatabase;
-import model.Client;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 
 public class ClientRunner {
     public static void main(String[] args) {
@@ -12,67 +10,73 @@ public class ClientRunner {
 
         CoffeeShopDatabase db = new CoffeeShopDatabase();
 
-        db.addClient(new Client("Иван Петров", LocalDate.of(1990, 5, 15),
-                "ivan@mail.ru", 5.0));
-        db.addClient(new Client("Мария Сидорова", LocalDate.of(1985, 3, 22),
-                "maria@gmail.com", 15.0));
-        db.addClient(new Client("Алексей Иванов", LocalDate.of(2000, 12, 10),
-                null, 10.0));
-        db.addClient(new Client("Елена Ковалёва", LocalDate.of(1978, 8, 8),
-                "elena@yandex.ru", 20.0));
-        db.addClient(new Client("Дмитрий Смирнов", LocalDate.of(1995, 3, 22),
-                "", 5.0));
+        System.out.println("Часть 3: Сеть кофеен");
 
-        System.out.println("Информация по скидкам клиентов");
+        System.out.println("\n1. Все кофейни сети:");
+        db.getAllCoffeeShops().forEach(shop ->
+                System.out.println("   " + shop));
 
-        System.out.println("\nОбщая статистика:");
-        System.out.println("Минимальная скидка: " + db.getMinDiscount() + "%");
-        System.out.println("Максимальная скидка: " + db.getMaxDiscount() + "%");
-        System.out.println("Средняя скидка: " + String.format("%.1f", db.getAverageDiscount()) + "%");
-
-        System.out.println("\nКлиенты с минимальной скидкой (" + db.getMinDiscount() + "%):");
-        for (Client client : db.getClientsWithMinDiscount()) {
-            System.out.println("  " + client.getName());
-        }
-
-        System.out.println("\nКлиенты с максимальной скидкой (" + db.getMaxDiscount() + "%):");
-        for (Client client : db.getClientsWithMaxDiscount()) {
-            System.out.println("  " + client.getName());
-        }
-
-        System.out.println("\nИнформация по клиентам");
-
-        Client youngest = db.getYoungestClient();
-        Client oldest = db.getOldestClient();
-
-        if (youngest != null) {
-            System.out.println("\nСамый молодой клиент: " +
-                    youngest.getName() + ", возраст: " + youngest.getAge() + " лет");
-        }
-
-        if (oldest != null) {
-            System.out.println("Самый возрастной клиент: " +
-                    oldest.getName() + ", возраст: " + oldest.getAge() + " лет");
-        }
-
-        System.out.println("\nКлиенты с днем рождения сегодня:");
-        var birthdayClients = db.getClientsWithBirthdayToday();
-        if (birthdayClients.isEmpty()) {
-            System.out.println("  нет клиентов с днем рождения сегодня");
+        System.out.println("\n2. Напитки, которые есть во всех кофейнях:");
+        var drinksInAll = db.getDrinksAvailableInAllShops();
+        if (drinksInAll.isEmpty()) {
+            System.out.println("   нет напитков, доступных во всех кофейнях");
         } else {
-            for (Client client : birthdayClients) {
-                System.out.println("  " + client.getName());
-            }
+            drinksInAll.forEach(drink ->
+                    System.out.println("   " + drink));
         }
 
-        System.out.println("\nКлиенты без email:");
-        var clientsWithoutEmail = db.getClientsWithoutEmail();
-        if (clientsWithoutEmail.isEmpty()) {
-            System.out.println("  все клиенты указали email");
+        System.out.println("\n3. Десерты, которые есть во всех кофейнях:");
+        var dessertsInAll = db.getDessertsAvailableInAllShops();
+        if (dessertsInAll.isEmpty()) {
+            System.out.println("   нет десертов, доступных во всех кофейнях");
         } else {
-            for (Client client : clientsWithoutEmail) {
-                System.out.println("  " + client.getName());
-            }
+            dessertsInAll.forEach(dessert ->
+                    System.out.println("   " + dessert));
         }
+
+        System.out.println("\n4. Все бариста сети:");
+        db.getAllBaristas().forEach(barista ->
+                System.out.println("   " + barista.getName() + " (кофейня #" + barista.getCoffeeShopId() + ")"));
+
+        System.out.println("\n5. Все официанты сети:");
+        db.getAllWaiters().forEach(waiter ->
+                System.out.println("   " + waiter.getName() + " (кофейня #" + waiter.getCoffeeShopId() + ")"));
+
+        System.out.println("\n6. Популярные позиции:");
+        System.out.println("   Самый популярный напиток: " + db.getMostPopularDrink());
+        System.out.println("   Самый популярный десерт: " + db.getMostPopularDessert());
+        System.out.println("   ТОП-3 напитков: " + String.join(", ", db.getTop3Drinks()));
+        System.out.println("   ТОП-3 десертов: " + String.join(", ", db.getTop3Desserts()));
+
+        System.out.println("\n7. Демонстрация работы триггеров:");
+        db.removeDrink(1, 1);
+        System.out.println("   Удален напиток в кофейне #1 (архивирован)");
+
+        db.transferEmployee(1, 2);
+        System.out.println("   Сотрудник #1 переведен из кофейни #1 в #2");
+
+        System.out.println("\n8. Черный список:");
+        db.addToBlacklist(3);
+        System.out.println("   Сотрудник #3 добавлен в черный список");
+
+        var blacklisted = db.getBlacklistedEmployees();
+        if (blacklisted.isEmpty()) {
+            System.out.println("   Черный список пуст");
+        } else {
+            System.out.println("   В черном списке:");
+            blacklisted.forEach(emp ->
+                    System.out.println("   " + emp.getName()));
+        }
+
+        System.out.println("\n9. Бариста, работавшие во всех кофейнях:");
+        var baristasAllShops = db.getBaristasWorkedInAllShops();
+        if (baristasAllShops.isEmpty()) {
+            System.out.println("   нет таких бариста");
+        } else {
+            baristasAllShops.forEach(barista ->
+                    System.out.println("   " + barista.getName()));
+        }
+
+        System.out.println("\nДемонстрация завершена");
     }
 }
