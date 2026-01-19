@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>3D Renderer</title>
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; }
+        canvas { display: block; cursor: none; }
+        #fps {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-family: monospace;
+            background: rgba(0,0,0,0.5);
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+<div id="fps">FPS: 0</div>
+
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    let frameCount = 0;
+    let lastTime = Date.now();
+
+    function updateFrame() {
+        fetch('/frame')
+            .then(r => r.text())
+            .then(base64 => {
+                const img = new Image();
+                img.src = 'data:image/png;base64,' + base64;
+                img.onload = () => ctx.drawImage(img, 0, 0);
+
+                // FPS счетчик
+                frameCount++;
+                const now = Date.now();
+                if (now - lastTime >= 1000) {
+                    document.getElementById('fps').textContent = 'FPS: ' + frameCount;
+                    frameCount = 0;
+                    lastTime = now;
+                }
+            });
+        requestAnimationFrame(updateFrame);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        const key = e.key.toLowerCase();
+        if (['w','a','s','d',' '].includes(key)) {
+            e.preventDefault();
+        }
+        fetch('/keydown?key=' + key);
+    });
+
+    document.addEventListener('keyup', (e) => {
+        fetch('/keyup?key=' + e.key.toLowerCase());
+    });
+
+    canvas.addEventListener('mousedown', (e) => {
+        if (e.button === 0) {
+            canvas.requestPointerLock();
+            fetch('/mousedown');
+        }
+    });
+
+    document.addEventListener('mouseup', (e) => {
+        if (e.button === 0) {
+            document.exitPointerLock();
+            fetch('/mouseup');
+        }
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (document.pointerLockElement === canvas) {
+            fetch('/mousemove?dx=' + e.movementX + '&dy=' + e.movementY);
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            fetch('/escape');
+        }
+    });
+
+    updateFrame();
+</script>
+</body>
+</html>
