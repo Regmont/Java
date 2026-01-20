@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Java Servlets - Домашнее задание</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .tasks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .task-card {
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #4CAF50;
+            transition: transform 0.2s;
+        }
+        .task-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .task-title {
+            color: #333;
+            margin-top: 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Java Servlets - Домашнее задание</h1>
+
+    <div class="tasks">
+        <div class="task-card">
+            <h2 class="task-title">Задание 1</h2>
+            <p>Цитата Линуса Торвальдса</p>
+            <a href="quote" class="btn">Показать цитату</a>
+        </div>
+
+        <div class="task-card">
+            <h2 class="task-title">Задание 2</h2>
+            <p>Максимум из трёх чисел</p>
+            <a href="forms/max-form.html" class="btn">Перейти к форме</a>
+        </div>
+
+        <div class="task-card">
+            <h2 class="task-title">Задание 3</h2>
+            <p>Максимум, минимум и среднее арифметическое</p>
+            <a href="forms/stats-form.html" class="btn">Перейти к форме</a>
+        </div>
+
+        <div class="task-card">
+            <h2 class="task-title">Задание 4</h2>
+            <p>Анализ текста: гласные, согласные, знаки препинания</p>
+            <a href="forms/text-form.html" class="btn">Перейти к форме</a>
+        </div>
+
+        <div class="task-card">
+            <h2 class="task-title">Задание 5</h2>
+            <p>Калькулятор: сложение, вычитание, умножение, деление и др.</p>
+            <a href="forms/calc-form.html" class="btn">Перейти к форме</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

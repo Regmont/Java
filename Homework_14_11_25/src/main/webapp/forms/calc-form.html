@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Калькулятор</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .operations {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 20px 0;
+    }
+    .operations label {
+        display: block;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        text-align: center;
+        cursor: pointer;
+    }
+    .operations input:checked + span {
+        font-weight: bold;
+        color: #4CAF50;
+    }
+    .btn {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+    }
+  </style>
+</head>
+<body>
+<h1>Калькулятор</h1>
+<form action="../calculator" method="post">
+  <div>
+    <label>Число 1: <input type="text" name="num1" required></label>
+  </div>
+  <div>
+    <label>Число 2: <input type="text" name="num2" required></label>
+  </div>
+
+  <div class="operations">
+    <label><input type="radio" name="operation" value="add" checked> <span>+</span></label>
+    <label><input type="radio" name="operation" value="subtract"> <span>-</span></label>
+    <label><input type="radio" name="operation" value="multiply"> <span>×</span></label>
+    <label><input type="radio" name="operation" value="divide"> <span>÷</span></label>
+    <label><input type="radio" name="operation" value="power"> <span>^</span></label>
+    <label><input type="radio" name="operation" value="remainder"> <span>%</span></label>
+  </div>
+
+  <button type="submit" class="btn">Вычислить</button>
+</form>
+
+<br>
+<a href="/">На главную</a>
+</body>
+</html>

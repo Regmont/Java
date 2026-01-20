@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Максимум из трёх чисел</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h1>Вычисление максимума</h1>
+<form action="../max" method="post">
+    <div class="form-group">
+        <label for="num1">Число 1:</label>
+        <input type="text" id="num1" name="num1" required>
+    </div>
+
+    <div class="form-group">
+        <label for="num2">Число 2:</label>
+        <input type="text" id="num2" name="num2" required>
+    </div>
+
+    <div class="form-group">
+        <label for="num3">Число 3:</label>
+        <input type="text" id="num3" name="num3" required>
+    </div>
+
+    <button type="submit" class="btn">Вычислить максимум</button>
+</form>
+
+<br>
+<a href="/">На главную</a>
+</body>
+</html>
