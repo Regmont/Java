@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Проверка дроби</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Проверка правильности дроби</h1>
+
+    <div class="input-group">
+        <label for="numerator">Числитель:</label>
+        <input type="number" id="numerator" value="3">
+    </div>
+
+    <div class="input-group">
+        <label for="denominator">Знаменатель:</label>
+        <input type="number" id="denominator" value="5">
+    </div>
+
+    <button class="check-button" onclick="checkFraction()">Проверить дробь</button>
+
+    <div id="result" class="result"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
