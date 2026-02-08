@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2be20f90-0be9-4da3-b2d7-b322a762bb01" name="Changes" comment="" />
+    <list default="true" id="2be20f90-0be9-4da3-b2d7-b322a762bb01" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Homework_27_11_25-2/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Homework_27_11_25-2/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Homework_27_11_25-2/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Homework_27_11_25-2/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Homework_27_11_25-2/src/main/java/com/example/config/WebAppInitializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Homework_27_11_25-2/src/main/java/com/example/config/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Homework_27_11_25-2/src/main/java/com/example/controller/StoreController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Homework_27_11_25-2/src/main/java/com/example/model/Store.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Homework_27_11_25-2/src/main/java/com/example/repository/StoreRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Homework_27_11_25-2/src/main/webapp/WEB-INF/views/store-detail.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Homework_27_11_25-2/src/main/webapp/WEB-INF/views/store-form.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Homework_27_11_25-2/src/main/webapp/WEB-INF/views/store-list.jsp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,20 +57,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.pizza-order [org.apache.tomcat.maven:tomcat7-maven-plugin:2.2:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.pizza-order [org.eclipse.jetty:jetty-maven-plugin:11.0.15:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.pizza-order [org.eclipse.jetty:jetty-maven-plugin:11.0.15:start].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.pizza-order [org.eclipse.jetty:jetty-maven-plugin:9.4.50.v20221201:run].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Maven.pizza-order [org.apache.tomcat.maven:tomcat7-maven-plugin:2.2:run].executor": "Run",
+    "Maven.pizza-order [org.eclipse.jetty:jetty-maven-plugin:11.0.15:run].executor": "Run",
+    "Maven.pizza-order [org.eclipse.jetty:jetty-maven-plugin:11.0.15:start].executor": "Run",
+    "Maven.pizza-order [org.eclipse.jetty:jetty-maven-plugin:9.4.50.v20221201:run].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Regmont/Desktop/Java homework/Homework_27_11_25-2"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
